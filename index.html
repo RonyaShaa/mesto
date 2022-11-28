@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mesto</title>
+  <link rel="stylesheet" href="./pages/index.css">
+</head>
+<body class="page">
+  <div class="page__container">
+    <header class="header">
+      <div class="header__logo"></div>
+    </header>
+    <main class="content">
+      <section class="profile">
+        <img class="profile__photo" src="./images/photo-profile.jpg" alt="Фотография владельца профиля">
+        <div class="profile__info">
+          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <button class="profile__button">
+            <img src="./images/Edit-Button.png" alt="Кнопка 'Редактировать профиль'" class="profile__edit-button">
+          </button>
+          <p class="profile__interests">Исследователь океана</p>  
+        </div>
+        <button class="profile__add-photo">
+          <img src="./images/pluse.png" alt="Кнопка 'Добавить фото в профиль'" class="profile__button-pluse">
+        </button>
+      </section>
+      <section class="cards">
+        <figure class="card">
+          <img src="./images/sevastopol.jpg" alt="Лавочка на набережной бухты Севастополя с видом на Памятник Затопленным кораблям" class="card__photo">
+          <figcaption class="card__place">
+            <h2 class="card__name">Памятник Затопленным кораблям</h2>
+            <button class="card__like"></button>
+          </figcaption>
+        </figure>
+        <figure class="card">
+          <img src="./images/Vorontsov-Palace.jpg" alt="Фрагмент Воронцовского дворца" class="card__photo">
+          <figcaption class="card__place">
+            <h2 class="card__name">Воронцовский дворец</h2>
+            <button class="card__like"></button>
+          </figcaption>
+        </figure>
+        <figure class="card">
+          <img src="./images/yalta-mayak.jpg" alt="Вид на косу в море, на краю которой расположен Ялтинский маяк" class="card__photo">
+          <figcaption class="card__place">
+            <h2 class="card__name">Ялтинский маяк</h2>
+            <button class="card__like"></button>
+          </figcaption>
+        </figure>
+        <figure class="card">
+          <img src="./images/lastochkino-gnezdo.jpg" alt="Вид снизу на отвесную скалу, на краю которой расположен готический замок 'Ласточкино гнездо'" class="card__photo">
+          <figcaption class="card__place">
+            <h2 class="card__name">Ласточкино гнездо</h2>
+            <button class="card__like"></button>
+          </figcaption>
+        </figure>
+        <figure class="card">
+          <img src="./images/tarhankyt.jpg" alt="Тарханкутский маяк на берегу черного моря в тумане" class="card__photo">
+          <figcaption class="card__place">
+            <h2 class="card__name">Тарханкутский маяк</h2>
+            <button class="card__like"></button>
+          </figcaption>
+        </figure>
+        <figure class="card">
+          <img src="./images/white-crag.jpg" alt="Белая скала на фоне красных маков" class="card__photo">
+          <figcaption class="card__place">
+            <h2 class="card__name">Белая скала</h2>
+            <button class="card__like"></button>
+          </figcaption>
+        </figure>
+      </section>
+    </main>
+    <footer class="footer">
+      <p class="footer__text">© 2022 Mesto Russia</p>
+    </footer>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close"></button>
+        <h2 class="popup__name">Редактировать профиль</h2>
+        <input type="text" class="popup__input-text popup__input-text_name">
+        <input type="text" class="popup__input-text popup__input-text_interests">
+        <button class="popup__button">
+          <span class="popup__button-text">Сохранить</span>
+        </button> 
+      </div>
+    </div>
+  </div>
+<script src="./script/index.js"></script>
+</body>
+</html>
