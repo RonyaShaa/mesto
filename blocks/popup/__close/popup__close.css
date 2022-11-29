@@ -6,9 +6,9 @@
   height: 32px;
   border: none;
   padding: 0;
-  background-color: rgba(0,0,0,.5);
+  background-color: transparent;
   opacity: 1;
-  background-image: url(../../../images/Close-Icon.png);
+  background-image: url(../../../images/Close\ Icon.svg);
   background-size: contain;
   background-repeat: no-repeat;
 }

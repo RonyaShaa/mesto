@@ -5,6 +5,12 @@
   width: 358px;
   height: 50px;
   background-color: black;
+  color: white;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
 }
 
 .popup__button:hover {
@@ -18,5 +24,7 @@
     margin: 45px auto 25px;
     width: 238px;
     height: 46px;
+    font-size: 14px;
+    line-height: 17px;
   }
 }

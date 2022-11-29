@@ -16,58 +16,58 @@
         <img class="profile__photo" src="./images/photo-profile.jpg" alt="Фотография владельца профиля">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__button">
-            <img src="./images/Edit-Button.png" alt="Кнопка 'Редактировать профиль'" class="profile__edit-button">
+          <button class="profile__button" type="button">
+            <img src="./images/Edit__Button.svg" alt="Кнопка 'Редактировать профиль'" class="profile__edit-button">
           </button>
           <p class="profile__interests">Исследователь океана</p>  
         </div>
         <button class="profile__add-photo">
-          <img src="./images/pluse.png" alt="Кнопка 'Добавить фото в профиль'" class="profile__button-pluse">
+          <img src="./images/pluse.svg" alt="Кнопка 'Добавить фото в профиль'" class="profile__button-pluse">
         </button>
       </section>
       <section class="cards">
-        <figure class="card">
+        <article class="card">
           <img src="./images/sevastopol.jpg" alt="Лавочка на набережной бухты Севастополя с видом на Памятник Затопленным кораблям" class="card__photo">
-          <figcaption class="card__place">
+          <div class="card__place">
             <h2 class="card__name">Памятник Затопленным кораблям</h2>
-            <button class="card__like"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+            <button class="card__like" type="button"></button>
+          </div>
+        </article>
+        <article class="card">
           <img src="./images/Vorontsov-Palace.jpg" alt="Фрагмент Воронцовского дворца" class="card__photo">
-          <figcaption class="card__place">
+          <div class="card__place">
             <h2 class="card__name">Воронцовский дворец</h2>
             <button class="card__like"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          </div>
+        </article>
+        <article class="card">
           <img src="./images/yalta-mayak.jpg" alt="Вид на косу в море, на краю которой расположен Ялтинский маяк" class="card__photo">
-          <figcaption class="card__place">
+          <div class="card__place">
             <h2 class="card__name">Ялтинский маяк</h2>
             <button class="card__like"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          </div>
+        </article>
+        <article class="card">
           <img src="./images/lastochkino-gnezdo.jpg" alt="Вид снизу на отвесную скалу, на краю которой расположен готический замок 'Ласточкино гнездо'" class="card__photo">
-          <figcaption class="card__place">
+          <div class="card__place">
             <h2 class="card__name">Ласточкино гнездо</h2>
             <button class="card__like"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          </div>
+        </article>
+        <article class="card">
           <img src="./images/tarhankyt.jpg" alt="Тарханкутский маяк на берегу черного моря в тумане" class="card__photo">
-          <figcaption class="card__place">
+          <div class="card__place">
             <h2 class="card__name">Тарханкутский маяк</h2>
             <button class="card__like"></button>
-          </figcaption>
-        </figure>
-        <figure class="card">
+          </div>
+        </article>
+        <article class="card">
           <img src="./images/white-crag.jpg" alt="Белая скала на фоне красных маков" class="card__photo">
-          <figcaption class="card__place">
+          <div class="card__place">
             <h2 class="card__name">Белая скала</h2>
             <button class="card__like"></button>
-          </figcaption>
-        </figure>
+          </div>
+        </article>
       </section>
     </main>
     <footer class="footer">
@@ -75,13 +75,13 @@
     </footer>
     <div class="popup">
       <div class="popup__container">
-        <button class="popup__close"></button>
+        <button class="popup__close" type="button"></button>
         <h2 class="popup__name">Редактировать профиль</h2>
-        <input type="text" class="popup__input-text popup__input-text_name">
-        <input type="text" class="popup__input-text popup__input-text_interests">
-        <button class="popup__button">
-          <span class="popup__button-text">Сохранить</span>
-        </button> 
+        <form class="popup__form" name="formPopup">
+          <input type="text" class="popup__input-text popup__input-text_type_name" placeholder="Введите имя" name="name">
+          <input type="text" class="popup__input-text popup__input-text_type_interests" placeholder="Введите интересы" name="interests">
+          <button class="popup__button" type="submit">Сохранить</button> 
+        </form>
       </div>
     </div>
   </div>
