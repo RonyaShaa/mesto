@@ -5,7 +5,7 @@
 const btnEditProfile = document.querySelector('.profile__button');
 //нашли попап редактирования профиля
 //let popup = document.querySelector('.popup');
-const popupEditProfile = document.querySelector('.popup__edit_profile')
+const popupEditProfile = document.querySelector('.popup__edit-profile')
 //нашли кнопку закрыть попап ред.профиля
 const btnPopupClose = document.querySelector('.popup__close');
 //инпуты имя профиля и  интересы
@@ -61,7 +61,7 @@ function handleFormSubmit(evt) {
 //-----------Второй попап Добавить карточку--------------------------------
 
 //нашли попап Добавить карточку
-const popupAddCard = document.querySelector('.popup__add_card');
+const popupAddCard = document.querySelector('.popup__add-card');
 //нашли кнопку открыть попап 'Добавить карточку'
 const btnAddCard = document.querySelector('.profile__add-photo');
 //нашли кнопку закрытия попап 
@@ -140,7 +140,7 @@ const cardLink = document.querySelector('.card__photo');
 //форма попапа добавления карточек
 const formPopupAddCard = document.querySelector('.popup__form-card');
 //-----------Третий попап Развернуть карточку----------------------
-const popupExpandCard = document.querySelector('.popup__expand_card');
+const popupExpandCard = document.querySelector('.popup__expand-card');
 console.log(popupExpandCard);
 
 const createCards = (element) => {
