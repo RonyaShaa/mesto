@@ -5,7 +5,7 @@
 const btnEditProfile = document.querySelector('.profile__button');
 //нашли попап редактирования профиля
 //let popup = document.querySelector('.popup');
-const popupEditProfile = document.querySelector('.popup_edit_profile')
+const popupEditProfile = document.querySelector('.popup_type_edit-profile')
 //нашли кнопку закрыть попап ред.профиля
 const btnPopupClose = document.querySelector('.popup__close');
 //инпуты имя профиля и  интересы
@@ -45,10 +45,10 @@ btnPopupClose.addEventListener('click', function (){
 });
 
 //слушатель сабмит формы попап
-formPopup.addEventListener('submit', handleFormSubmit);
+formPopup.addEventListener('submit', handleFormSubmitEditProfile);
 
-//функция обработки сабмит с вызовом функции закрытия попап 
-function handleFormSubmit(evt) {
+//функция обработки сабмит попапа Редактировать профиль с вызовом функции закрытия попап 
+function handleFormSubmitEditProfile(evt) {
   evt.preventDefault();
   profileName.textContent = nameInput.value;
   profileInterests.textContent = interestsInput.value;
@@ -61,7 +61,7 @@ function handleFormSubmit(evt) {
 //-----------Второй попап Добавить карточку--------------------------------
 
 //нашли попап Добавить карточку
-const popupAddCard = document.querySelector('.popup_add_card');
+const popupAddCard = document.querySelector('.popup_type_add-card');
 //нашли кнопку открыть попап 'Добавить карточку'
 const btnAddCard = document.querySelector('.profile__add-photo');
 //нашли кнопку закрытия попап 
@@ -82,52 +82,6 @@ btnPopupCloseAddCard.addEventListener('click', function () {
 
 //-----------Добавление карточек из массива-------------------------------
 
-//объявляем массив карточек 
-
-const initialCards = [
-  {
-    name: 'Памятник Затопленным кораблям',
-    link: 'https://images.unsplash.com/photo-1595451800185-fb4cb2465b3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
-  },
-  {
-    name: 'Воронцовский дворец',
-    link: 'https://images.unsplash.com/photo-1655094378266-7eddc4f29c5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
-  },
-  {
-    name: 'Ялтинский маяк',
-    link: 'https://images.unsplash.com/photo-1564085892527-f072eb172a91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
-  },
-  {
-    name: 'Ласточкино гнездо',
-    link: 'https://images.unsplash.com/photo-1598867957922-2cd433a5dacc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80'
-  },
-  {
-    name: 'Тарханкутский маяк',
-    link: 'https://images.unsplash.com/photo-1633585309605-98205cda91e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80'
-  },
-  {
-    name: 'Белая скала',
-    link: 'https://images.unsplash.com/photo-1623527859001-8010a15cf790?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
-  }
-];
-
-/*
-//пройдем по массиву карточек 
-initialCards.forEach(({name, link}) => {
-  //получаем содержимое тега темплейт
-  const templateCards = document.querySelector('#card').content;
-  //клонируем содержимое тега темплейт
-  const articleCards = templateCards.querySelector('.card').cloneNode(true);
-  //наполняем содержимым
-  articleCards.querySelector('.card__photo').src = link;
-  articleCards.querySelector('.card__name').textContent = name;
-  //получаем тег в который вложим содержимое темплейт
-  const cardContainer = document.querySelector('.cards');
-  //отображаем на странице
-  cardContainer.append(articleCards);
-});
-*/
-
 //найдем темплейт карточки
 const templateCards = document.querySelector('#card');
 //получаем тег в который вложим содержимое темплейт
@@ -137,18 +91,23 @@ const mestoInput = document.querySelector('.popup__input-text_type_mesto');
 const linkInput = document.querySelector('.popup__input-text_type_link');
 const cardMesto = document.querySelector('.card__name');
 const cardLink = document.querySelector('.card__photo');
+const popupPhoto = document.querySelector('.popup__photo');
+const popupPhotoName = document.querySelector('.popup__photo-name');
 //форма попапа добавления карточек
 const formPopupAddCard = document.querySelector('.popup__form-card');
 //-----------Третий попап Развернуть карточку----------------------
-const popupExpandCard = document.querySelector('.popup_expand_card');
-console.log(popupExpandCard);
+const popupExpandCard = document.querySelector('.popup_type_expand-card');
+//закрытие третьего попапа по клику на крестик
+document.querySelector('.popup__close_expand_card').addEventListener('click', function () {
+  closePopup(popupExpandCard);
+});
 
-const createCards = (element) => {
+const createCards = ({name, link}) => {
   const card = templateCards
   .content.querySelector('.card')
   .cloneNode(true);
-  card.querySelector('.card__photo').src = element.link;
-  card.querySelector('.card__name').textContent = element.name;
+  card.querySelector('.card__photo').src = link;
+  card.querySelector('.card__name').textContent = name;
   card.querySelector('.card__like').addEventListener('click',function  (evt) {
     evt.target.classList.toggle('card__like_active');
   });
@@ -156,61 +115,36 @@ const createCards = (element) => {
     evt.target.closest('.card').remove();
   });
   card.querySelector('.card__photo').addEventListener('click', function () {
-    document.querySelector('.popup__photo').src = element.link;
-    document.querySelector('.popup__photo-name').textContent = element.name;
+    popupPhoto.src = link;
+    popupPhotoName.textContent = name;
     openPopup(popupExpandCard);
   });
-  document.querySelector('.popup__close_expand_card').addEventListener('click', function () {
-    closePopup(popupExpandCard);
-  });
-  
   return card;
 };
 
-const renderCard = (element) => {
-  cardContainer.append(createCards(element));
+const renderCard = ({name, link}) => {
+  cardContainer.append(createCards({name, link}));
 };
 
-const renderCardPopup = (element) => {
-  cardContainer.prepend(createCards(element));
+const renderCardPopup = ({name, link}) => {
+  cardContainer.prepend(createCards({name, link}));
 };
 initialCards.forEach(renderCard);
-// initialCards.forEach((element) => {
-//   renderCard(element);
-// });
+
+
 //-----------------Добавление новой карточки из попапа---------------
-const AddCard = (event) => {
+const addCard = (event) => {
   event.preventDefault();
-  // cardMesto.textContent = mestoInput.value;
-  // cardLink.src = linkInput.value;
   const element = {
     name: mestoInput.value,
     link: linkInput.value
   };
   renderCardPopup(element);
-  mestoInput.value = '';
-  linkInput.value = '';
   closePopup(popupAddCard);
+  formPopupAddCard.reset();
 }
-formPopupAddCard.addEventListener('submit', AddCard);
-/*
+formPopupAddCard.addEventListener('submit', addCard);
 
-  //-----------Активная кнопка лайка--------------------------------
-  //найдем кнопку лайк
-  const likeItem = document.querySelector('.card__like');
-  //лайк при клике станет черный и обратно
-  likeItem.addEventListener('click', function () {
-    likeItem.classList.toggle('.card__like_active');
-  });
-
-    //------------------Удаление карточки-----------------------------------------------
-  //находим кнопку удаления карточки
-  const btnDeleteCard = document.querySelector('.card__delete');
-  //навешиваем слушать клика с функцией удаления
-  btnDeleteCard.addEventListener('click', function(){
-    btnDeleteCard.closest('.card').remove();
-  });
-*/
 
 
 

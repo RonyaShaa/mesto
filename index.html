@@ -28,50 +28,6 @@
       <section class="cards">
         <!-- сюда склонируется темплейт элемент -->
       </section>
-      <!-- <section class="cards">
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1595451800185-fb4cb2465b3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="Лавочка на набережной бухты Севастополя с видом на Памятник Затопленным кораблям" class="card__photo">
-          <div class="card__place">
-            <h2 class="card__name">Памятник Затопленным кораблям</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1655094378266-7eddc4f29c5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="Фрагмент Воронцовского дворца" class="card__photo">
-          <div class="card__place">
-            <h2 class="card__name">Воронцовский дворец</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1564085892527-f072eb172a91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="Вид на косу в море, на краю которой расположен Ялтинский маяк" class="card__photo">
-          <div class="card__place">
-            <h2 class="card__name">Ялтинский маяк</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1598867957922-2cd433a5dacc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80" alt="Вид снизу на отвесную скалу, на краю которой расположен готический замок 'Ласточкино гнездо'" class="card__photo">
-          <div class="card__place">
-            <h2 class="card__name">Ласточкино гнездо</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1633585309605-98205cda91e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80" alt="Тарханкутский маяк на берегу черного моря в тумане" class="card__photo">
-          <div class="card__place">
-            <h2 class="card__name">Тарханкутский маяк</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-        <article class="card">
-          <img src="https://images.unsplash.com/photo-1623527859001-8010a15cf790?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="Белая скала на фоне красных маков" class="card__photo">
-          <div class="card__place">
-            <h2 class="card__name">Белая скала</h2>
-            <button class="card__like" type="button"></button>
-          </div>
-        </article>
-      </section> -->
     </main>
     <footer class="footer">
       <p class="footer__text">© 2022 Mesto Russia</p>
@@ -88,7 +44,7 @@
       </article>
     </template>
     <!-- попап Редактировать профиль -->
-    <div class="popup popup_edit_profile">
+    <div class="popup popup_type_edit-profile">
       <div class="popup__container">
         <button class="popup__close" type="button"></button>
         <h2 class="popup__name">Редактировать профиль</h2>
@@ -100,7 +56,7 @@
       </div>
     </div>
     <!-- попап Добавить карточку -->
-    <div class="popup popup_add_card">
+    <div class="popup popup_type_add-card">
       <div class="popup__container">
         <button class="popup__close popup__close_add_card" type="button"></button>
         <h2 class="popup__name">Новое место</h2>
@@ -112,7 +68,7 @@
       </div>
     </div>
     <!-- попап Развернуть карточку -->
-    <div class="popup popup_expand_card">
+    <div class="popup popup_type_expand-card">
       <div class="popup__container-fullscreen">
         <button class="popup__close popup__close_expand_card" type="button"></button>
         <img src="#" alt="" class="popup__photo">
@@ -120,6 +76,7 @@
       </div>
     </div> 
   </div>
+<script src="./script/cards.js"></script>
 <script src="./script/index.js"></script>
 </body>
 </html>
