@@ -145,6 +145,42 @@ const addCard = (event) => {
 }
 formPopupAddCard.addEventListener('submit', addCard);
 
+//-----------------------------6-sprint------------------------------
+//закрытие попапов по клику на оверлей
+popupEditProfile.addEventListener('click', function(evt){
+  if(evt.target === evt.currentTarget){
+    closePopup(popupEditProfile);
+  };
+});
+
+popupAddCard.addEventListener('click', function(evt){
+  if(evt.target === evt.currentTarget){
+    closePopup(popupAddCard);
+  };
+});
+
+popupExpandCard.addEventListener('click', function(evt){
+  if(evt.target === evt.currentTarget){
+    closePopup(popupExpandCard);
+  };
+});
 
 
+//закрытие попапов по клику на Esc
+document.addEventListener('keydown', function(evt){
+  if(evt.key === 'Escape') {
+    closePopup(popupEditProfile);
+  };
+});
 
+document.addEventListener('keydown', function(evt){
+  if(evt.key === 'Escape') {
+    closePopup(popupAddCard);
+  };
+});
+
+document.addEventListener('keydown', function(evt){
+  if(evt.key === 'Escape') {
+    closePopup(popupExpandCard);
+  };
+});
