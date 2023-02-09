@@ -11,7 +11,7 @@
 };
 
 //функция отмены отправки формы на сервер
-function disableSubmit(evt) {
+function preventDefault(evt) {
   evt.preventDefault();
 };
 
@@ -21,14 +21,22 @@ function enableValidation (config) {
   const formList = Array.from(document.querySelectorAll(config.formSelector));
   //переберем каждую форму
   formList.forEach((form) => {
-    form.addEventListener('submit', disableSubmit);
+    form.addEventListener('submit', preventDefault);
     //добавим слушатель на каждое изменение в инпуте и вызовем функцию блокировки и разблокировки кнопки сабмит
     form.addEventListener('input', () => {
       toggleButton(form, config);
     });
   
     addInputListeners(form, config);
+    // деактивируем кнопку при 1й загрузке сайта
     toggleButton(form, config);
+
+    form.addEventListener('reset', () => {
+      // `setTimeout` нужен для того, чтобы дождаться очищения формы (вызов уйдет в конце стэка) и только потом вызвать `toggleButtonState`
+      setTimeout(() => {
+       toggleButton(form, config);
+      }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
+    });
   });
 };
 
@@ -67,7 +75,7 @@ function toggleButton(form, config) {
   //заблокируем кнопку если форма не валидна
   buttonSubmit.disabled = !isFormValid;
   //класс неактивной кнопки
-  buttonSubmit.classList.toggle('popup__button-disabled', !isFormValid);
+  buttonSubmit.classList.toggle(config.inactiveButtonClass, !isFormValid);
 }
 
 /**

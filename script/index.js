@@ -7,7 +7,7 @@ const btnEditProfile = document.querySelector('.profile__button');
 //let popup = document.querySelector('.popup');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile')
 //нашли кнопку закрыть попап ред.профиля
-const btnPopupClose = document.querySelector('.popup__close');
+const profileCloseButton = document.querySelector('.popup__close');
 //инпуты имя профиля и  интересы
 const nameInput = document.querySelector('.popup__input-text_type_name');
 const  interestsInput =  document.querySelector('.popup__input-text_type_interests');
@@ -15,20 +15,46 @@ const  interestsInput =  document.querySelector('.popup__input-text_type_interes
 const profileName = document.querySelector('.profile__name');
 const profileInterests = document.querySelector('.profile__interests');
 //нашли форму попапа
-const formPopup = document.querySelector('.popup__form');
+const profileForm = document.querySelector('.popup__form');
 
 //-----------Универсальные функции Открыть/Закрыть попап--------------------------------
-
-
 //функция открытия попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-}
+
+  document.addEventListener('keydown', closePopupByEsc);
+};
 
 //функция закрытия попап
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-}
+
+  document.removeEventListener('keydown', closePopupByEsc);
+};
+//----------------------6-sprint-------------------------------------------
+//найдем все попапы
+const popups = Array.from(document.querySelectorAll('.popup'));
+
+//функция закрытия попапов по по клику на Esc
+const closePopupByEsc = (evt) => {
+  popups.forEach((popup)=> {
+    if(evt.key === 'Escape') {
+      closePopup(popup);
+    };
+  });
+};
+
+//закрытие попапов по клику на оверлей и крестик
+popups.forEach((popup) => {
+  popup.addEventListener('mousedown', (evt) => {
+    if (evt.target.classList.contains('popup_opened')) {
+      closePopup(popup);
+    };
+    if (evt.target.classList.contains('popup__close')) {
+      closePopup(popup);
+    };
+  });
+});
 
 //-----------Первый попап Редактировать профиль--------------------------------
 
@@ -39,13 +65,8 @@ btnEditProfile.addEventListener('click', function(){
   openPopup(popupEditProfile);
 });
 
-//слушатель клика по кнопке Закрыть попап с вызовом функции закрыть попап 
-btnPopupClose.addEventListener('click', function (){
-  closePopup(popupEditProfile);
-});
-
 //слушатель сабмит формы попап
-formPopup.addEventListener('submit', handleFormSubmitEditProfile);
+profileForm.addEventListener('submit', handleFormSubmitEditProfile);
 
 //функция обработки сабмит попапа Редактировать профиль с вызовом функции закрытия попап 
 function handleFormSubmitEditProfile(evt) {
@@ -64,21 +85,12 @@ function handleFormSubmitEditProfile(evt) {
 const popupAddCard = document.querySelector('.popup_type_add-card');
 //нашли кнопку открыть попап 'Добавить карточку'
 const btnAddCard = document.querySelector('.profile__add-photo');
-//нашли кнопку закрытия попап 
-const btnPopupCloseAddCard = document.querySelector('.popup__close_add_card');
-
-
-
 
 //слушатель клика по кнопке 'Добавить карточку' с вызовом функции открыть попап
 btnAddCard.addEventListener('click', function () {
   openPopup(popupAddCard);
 });
 
-//слушатель клика по кнопке Закрыть попап с вызовом функции закрыть попап
-btnPopupCloseAddCard.addEventListener('click', function () {
-  closePopup(popupAddCard);
-});
 
 //-----------Добавление карточек из массива-------------------------------
 
@@ -89,24 +101,24 @@ const cardContainer = document.querySelector('.cards');
 //инпуты места и ссылки
 const mestoInput = document.querySelector('.popup__input-text_type_mesto');
 const linkInput = document.querySelector('.popup__input-text_type_link');
-const cardMesto = document.querySelector('.card__name');
-const cardLink = document.querySelector('.card__photo');
+// const cardMesto = document.querySelector('.card__name');
+// const cardPhoto = document.querySelector('.card__photo');
 const popupPhoto = document.querySelector('.popup__photo');
 const popupPhotoName = document.querySelector('.popup__photo-name');
 //форма попапа добавления карточек
 const formPopupAddCard = document.querySelector('.popup__form-card');
-//-----------Третий попап Развернуть карточку----------------------
+
+
+//Третий попап Развернуть карточку
 const popupExpandCard = document.querySelector('.popup_type_expand-card');
-//закрытие третьего попапа по клику на крестик
-document.querySelector('.popup__close_expand_card').addEventListener('click', function () {
-  closePopup(popupExpandCard);
-});
 
 const createCards = ({name, link}) => {
   const card = templateCards
   .content.querySelector('.card')
   .cloneNode(true);
-  card.querySelector('.card__photo').src = link;
+  const cardPhoto = card.querySelector('.card__photo');
+  cardPhoto.src = link;
+  cardPhoto.alt = name;
   card.querySelector('.card__name').textContent = name;
   card.querySelector('.card__like').addEventListener('click',function  (evt) {
     evt.target.classList.toggle('card__like_active');
@@ -114,8 +126,9 @@ const createCards = ({name, link}) => {
   card.querySelector('.card__delete').addEventListener('click', function(evt){
     evt.target.closest('.card').remove();
   });
-  card.querySelector('.card__photo').addEventListener('click', function () {
+  cardPhoto.addEventListener('click', function () {
     popupPhoto.src = link;
+    popupPhoto.alt = name;
     popupPhotoName.textContent = name;
     openPopup(popupExpandCard);
   });
@@ -126,7 +139,7 @@ const renderCard = ({name, link}) => {
   cardContainer.append(createCards({name, link}));
 };
 
-const renderCardPopup = ({name, link}) => {
+const prependCard = ({name, link}) => {
   cardContainer.prepend(createCards({name, link}));
 };
 initialCards.forEach(renderCard);
@@ -139,48 +152,8 @@ const addCard = (event) => {
     name: mestoInput.value,
     link: linkInput.value
   };
-  renderCardPopup(element);
+  prependCard(element);
   closePopup(popupAddCard);
   formPopupAddCard.reset();
 }
 formPopupAddCard.addEventListener('submit', addCard);
-
-//-----------------------------6-sprint------------------------------
-//закрытие попапов по клику на оверлей
-popupEditProfile.addEventListener('click', function(evt){
-  if(evt.target === evt.currentTarget){
-    closePopup(popupEditProfile);
-  };
-});
-
-popupAddCard.addEventListener('click', function(evt){
-  if(evt.target === evt.currentTarget){
-    closePopup(popupAddCard);
-  };
-});
-
-popupExpandCard.addEventListener('click', function(evt){
-  if(evt.target === evt.currentTarget){
-    closePopup(popupExpandCard);
-  };
-});
-
-
-//закрытие попапов по клику на Esc
-document.addEventListener('keydown', function(evt){
-  if(evt.key === 'Escape') {
-    closePopup(popupEditProfile);
-  };
-});
-
-document.addEventListener('keydown', function(evt){
-  if(evt.key === 'Escape') {
-    closePopup(popupAddCard);
-  };
-});
-
-document.addEventListener('keydown', function(evt){
-  if(evt.key === 'Escape') {
-    closePopup(popupExpandCard);
-  };
-});
