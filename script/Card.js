@@ -4,7 +4,7 @@ class Card {
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
-  }
+  };
 
   _getTemplate(){
     const card = document
@@ -14,9 +14,7 @@ class Card {
       .cloneNode(true);
 
     return card;
-  }
-
-  render 
+  };
 
   // Функция создания карточки
   generateCard(){
@@ -32,7 +30,7 @@ class Card {
     this._element.querySelector('.card__name').textContent = this._name;
    
     return this._element;
-  }
+  };
 
   _setEventListeners() {
     //слушатель кнопки лайк
@@ -48,18 +46,16 @@ class Card {
     this._element.querySelector('.card__photo').addEventListener('click', () => {
       this._handleExpandCard(this._name, this._link);
     });
-  }
+  };
 
   _handleLikeClick(){
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
-  }
+  };
 
   _handleDeleteClick(){
     this._element.querySelector('.card__delete').closest('.card').remove();
-  }
+  };
   
-}
-
-
+};
 
 export default Card;

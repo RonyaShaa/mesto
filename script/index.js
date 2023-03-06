@@ -23,7 +23,7 @@ const profileForm = document.querySelector('.popup__form');
 //функция открытия попап
 function openPopup(popup) {
   popup.classList.add('popup_opened');
-
+  
   document.addEventListener('keydown', closePopupByEsc);
 };
 
@@ -60,12 +60,15 @@ popups.forEach((popup) => {
 
 //-----------Первый попап Редактировать профиль--------------------------------
 
-//слушатель клика по кнопке Редактировать профиль с вызовом функции открыть попап 
-btnEditProfile.addEventListener('click', function(){
+
+const clickBtnEditProfile = function () {
   nameInput.value = profileName.textContent;
   interestsInput.value = profileInterests.textContent;
   openPopup(popupEditProfile);
-});
+  editProfileForm.resetForm();
+};
+//слушатель клика по кнопке Редактировать профиль с вызовом функции открыть попап 
+btnEditProfile.addEventListener('click', clickBtnEditProfile);
 
 //слушатель сабмит формы попап
 profileForm.addEventListener('submit', handleFormSubmitEditProfile);
@@ -80,7 +83,6 @@ function handleFormSubmitEditProfile(evt) {
 
 //----------------------5-sprint-------------------------------------------
 
-
 //-----------Второй попап Добавить карточку--------------------------------
 
 //нашли попап Добавить карточку
@@ -92,7 +94,6 @@ const btnAddCard = document.querySelector('.profile__add-photo');
 btnAddCard.addEventListener('click', function () {
   openPopup(popupAddCard);
 });
-
 
 //-----------Добавление карточек из массива-------------------------------
 
@@ -110,10 +111,8 @@ const popupPhotoName = document.querySelector('.popup__photo-name');
 //форма попапа добавления карточек
 const formPopupAddCard = document.querySelector('.popup__form-card');
 
-
 //Третий попап Развернуть карточку
 const popupExpandCard = document.querySelector('.popup_type_expand-card');
-
 
 //----------7-sprint-------------------------------------------
 //объявляем массив карточек 

@@ -3,7 +3,7 @@
   constructor(config, form) {
     this._config = config;
     this._form = form;
-  }
+  };
   
 //метод включения валидации
   enableValidation() {
@@ -23,7 +23,21 @@
        this._toggleButton(this._form, this._config);
       }, 0); // достаточно указать 0 миллисекунд, чтобы после `reset` уже сработало действие
     });
-    // });
+  };
+  
+  //метод для очистки ошибок
+  resetForm() {
+    this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));// вернет массив инпутов
+    //берем и проходим по каждому инпуту, и повесим обработчик события
+    this._inputList.forEach( (input) => {
+
+    //найдем спан который привязан к этому инпуту и убираем текст ошибки
+      this._errorElement = document.querySelector(`#${input.id}-error`).textContent = '';
+        //убираем класс с красным бордером
+      input.classList.remove(this._config.inputErrorClass);
+    });
+    //блокируем кнопку
+    this._toggleButton(this._form, this._config);
   };
 
   //метод отмены отправки формы на сервер
