@@ -1,3 +1,5 @@
+import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 //-----------------------------4-sprint---------------------------------
 
@@ -14,7 +16,7 @@ const  interestsInput =  document.querySelector('.popup__input-text_type_interes
 //имя профиля и интересы в секции(где  будет меняться)
 const profileName = document.querySelector('.profile__name');
 const profileInterests = document.querySelector('.profile__interests');
-//нашли форму попапа
+//нашли форму попапа редактировать профиль
 const profileForm = document.querySelector('.popup__form');
 
 //-----------Универсальные функции Открыть/Закрыть попап--------------------------------
@@ -112,38 +114,57 @@ const formPopupAddCard = document.querySelector('.popup__form-card');
 //Третий попап Развернуть карточку
 const popupExpandCard = document.querySelector('.popup_type_expand-card');
 
-const createCards = ({name, link}) => {
-  const card = templateCards
-  .content.querySelector('.card')
-  .cloneNode(true);
-  const cardPhoto = card.querySelector('.card__photo');
-  cardPhoto.src = link;
-  cardPhoto.alt = name;
-  card.querySelector('.card__name').textContent = name;
-  card.querySelector('.card__like').addEventListener('click',function  (evt) {
-    evt.target.classList.toggle('card__like_active');
-  });
-  card.querySelector('.card__delete').addEventListener('click', function(evt){
-    evt.target.closest('.card').remove();
-  });
-  cardPhoto.addEventListener('click', function () {
-    popupPhoto.src = link;
-    popupPhoto.alt = name;
-    popupPhotoName.textContent = name;
-    openPopup(popupExpandCard);
-  });
-  return card;
+
+//----------7-sprint-------------------------------------------
+//объявляем массив карточек 
+
+const initialCards = [
+  {
+    name: 'Памятник Затопленным кораблям',
+    link: 'https://images.unsplash.com/photo-1595451800185-fb4cb2465b3a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
+  },
+  {
+    name: 'Воронцовский дворец',
+    link: 'https://images.unsplash.com/photo-1655094378266-7eddc4f29c5e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
+  },
+  {
+    name: 'Ялтинский маяк',
+    link: 'https://images.unsplash.com/photo-1564085892527-f072eb172a91?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80'
+  },
+  {
+    name: 'Ласточкино гнездо',
+    link: 'https://images.unsplash.com/photo-1598867957922-2cd433a5dacc?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=686&q=80'
+  },
+  {
+    name: 'Тарханкутский маяк',
+    link: 'https://images.unsplash.com/photo-1633585309605-98205cda91e4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=765&q=80'
+  },
+  {
+    name: 'Белая скала',
+    link: 'https://images.unsplash.com/photo-1623527859001-8010a15cf790?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80'
+  }
+];
+
+//функция развернуть карточку
+const handleExpandCard = (name,link) => {
+  popupPhoto.src = link;
+  popupPhoto.alt = name;
+  popupPhotoName.textContent = name;
+  openPopup(popupExpandCard);
 };
 
-const renderCard = ({name, link}) => {
-  cardContainer.append(createCards({name, link}));
-};
+//функция отрисовывает карточки
+const renderCard = ((item) => {
+  // Создадим экземпляр карточки
+  const card = new Card(item,'#card',handleExpandCard);
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+    // Добавляем в DOM
+    cardContainer.prepend(cardElement);
+});
 
-const prependCard = ({name, link}) => {
-  cardContainer.prepend(createCards({name, link}));
-};
+//пройдем по массиву и отрисуем карточки
 initialCards.forEach(renderCard);
-
 
 //-----------------Добавление новой карточки из попапа---------------
 const addCard = (event) => {
@@ -152,8 +173,26 @@ const addCard = (event) => {
     name: mestoInput.value,
     link: linkInput.value
   };
-  prependCard(element);
+  renderCard(element);
   closePopup(popupAddCard);
   formPopupAddCard.reset();
 }
 formPopupAddCard.addEventListener('submit', addCard);
+
+//----------------------6-sprint-------------------------------------------
+
+ //универсальный конфиг валидации
+ const validationConfig = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input-text',
+  submitButtonSelector: '.popup__button',
+  inactiveButtonClass: 'popup__button-disabled',  
+  inputErrorClass: 'popup__input-text_type_error',   //стили для класса невалидного инпута  
+  errorClass: 'popup__error', //класс спана с ошибкой
+};
+
+//----------------------7-sprint-------------------------------------------
+const editProfileForm = new FormValidator(validationConfig,profileForm);
+editProfileForm.enableValidation();
+const editFormPopupAddCard = new FormValidator(validationConfig,formPopupAddCard);
+editFormPopupAddCard.enableValidation();
