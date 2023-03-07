@@ -30,11 +30,8 @@
     this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));// вернет массив инпутов
     //берем и проходим по каждому инпуту, и повесим обработчик события
     this._inputList.forEach( (input) => {
-
-    //найдем спан который привязан к этому инпуту и убираем текст ошибки
-      this._errorElement = document.querySelector(`#${input.id}-error`).textContent = '';
-        //убираем класс с красным бордером
-      input.classList.remove(this._config.inputErrorClass);
+      //вызовем метод скрытия спана ошибки
+      this._hideInputError(input);
     });
     //блокируем кнопку
     this._toggleButton(this._form, this._config);
@@ -55,10 +52,7 @@
     
     //если инпут валидный 
     if (this._input.validity.valid) { 
-      //убираем класс с красным бордером
-      this._input.classList.remove(this._config.inputErrorClass);
-      //убираем текст ошибки
-      this._errorElement.textContent = '';
+      this._hideInputError(this._input);
     //если инпут не валидный
     } else {
       //добавим класс с красным бордером
@@ -66,6 +60,16 @@
       //добавим текст ошибки 
       this._errorElement.textContent = this._input.validationMessage;
     };
+  };
+  
+  //метод скрытия спана ошибки
+  _hideInputError(input){
+    //найдем спан который привязан к этому инпуту
+    this._errorElement = document.querySelector(`#${input.id}-error`);
+    //убираем класс с красным бордером
+    input.classList.remove(this._config.inputErrorClass);
+    //убираем текст ошибки
+    this._errorElement.textContent = '';
   };
 
   //метод блокирует и разблокирует кнопку
