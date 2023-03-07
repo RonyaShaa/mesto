@@ -26,7 +26,7 @@
   };
   
   //метод для очистки ошибок
-  resetForm() {
+  resetValidation() {
     this._inputList = Array.from(this._form.querySelectorAll(this._config.inputSelector));// вернет массив инпутов
     //берем и проходим по каждому инпуту, и повесим обработчик события
     this._inputList.forEach( (input) => {

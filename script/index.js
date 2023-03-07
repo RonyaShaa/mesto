@@ -65,7 +65,7 @@ const clickBtnEditProfile = function () {
   nameInput.value = profileName.textContent;
   interestsInput.value = profileInterests.textContent;
   openPopup(popupEditProfile);
-  editProfileForm.resetForm();
+  editProfileForm.resetValidation();
 };
 //слушатель клика по кнопке Редактировать профиль с вызовом функции открыть попап 
 btnEditProfile.addEventListener('click', clickBtnEditProfile);
