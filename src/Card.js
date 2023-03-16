@@ -1,6 +1,6 @@
 class Card {
   constructor(data, templateSelector, handleExpandCard) {
-    this._mesto = data.mesto;
+    this._name = data.mesto;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
@@ -26,8 +26,8 @@ class Card {
   // Добавим данные
   
     this._element.querySelector('.card__photo').src = this._link;
-    this._element.querySelector('.card__photo').alt = this._mesto;
-    this._element.querySelector('.card__name').textContent = this._mesto;
+    this._element.querySelector('.card__photo').alt = this._name;
+    this._element.querySelector('.card__name').textContent = this._name;
    
     return this._element;
   };
@@ -44,7 +44,7 @@ class Card {
     });
     //слушатель клика по карточке с вызовом функции развернуть карточку
     this._element.querySelector('.card__photo').addEventListener('click', () => {
-      this._handleExpandCard(this._mesto, this._link);
+      this._handleExpandCard(this._name, this._link);
     });
   };
 
