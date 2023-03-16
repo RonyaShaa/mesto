@@ -1,12 +1,13 @@
 class Card {
   constructor(data, templateSelector, handleExpandCard) {
-    this._name = data.mesto;
+    this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
   };
-
+  //создаем разметку
   _getTemplate(){
+    
     const card = document
       .querySelector(this._templateSelector)
       .content
@@ -15,29 +16,25 @@ class Card {
 
     return card;
   };
-
-  // Функция создания карточки
+  // Функция создает и возвращает карточку
   generateCard(){
   // Запишем разметку в приватное поле _element. 
   // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
     this._setEventListeners();
-
   // Добавим данные
-  
     this._element.querySelector('.card__photo').src = this._link;
     this._element.querySelector('.card__photo').alt = this._name;
     this._element.querySelector('.card__name').textContent = this._name;
    
     return this._element;
   };
-
+  //установка слушателей
   _setEventListeners() {
     //слушатель кнопки лайк
     this._element.querySelector('.card__like').addEventListener('click', () => {
       this._handleLikeClick();
     });
-
     //слушатель кнопки удалить
     this._element.querySelector('.card__delete').addEventListener('click', () => {
       this._handleDeleteClick();
@@ -47,15 +44,14 @@ class Card {
       this._handleExpandCard(this._name, this._link);
     });
   };
-
+  //переключатель лайка
   _handleLikeClick(){
     this._element.querySelector('.card__like').classList.toggle('card__like_active');
   };
-
+  //функция удалить карточку
   _handleDeleteClick(){
     this._element.querySelector('.card__delete').closest('.card').remove();
   };
-  
 };
 
 export default Card;
