@@ -98,12 +98,9 @@ const profileForm = document.querySelector('.popup__form');
 // formPopupAddCard.addEventListener('submit', addCard);
 
 //функция развернуть карточку
-// const handleExpandCard = (name,link) => {
-//   popupPhoto.src = link;
-//   popupPhoto.alt = name;
-//   popupPhotoName.textContent = name;
-//   popupExpandCard.open();
-// };
+const handleExpandCard = (item) => {
+  popupExpandCard.open(item.link, item.mesto);
+}
 //нашли попап Добавить карточку
 const popupAddCard = document.querySelector('.popup_type_add-card');
 //нашли кнопку открыть попап 'Добавить карточку'
@@ -150,19 +147,13 @@ addCardFormValidator.enableValidation();
 const section = new Section ({
   items: initialCards, 
   renderer: (item) => {
-    // Создадим экземпляр карточки
-    const card = new Card({
-      data: item,
-      handleExpandCard: (item) => {
-        popupExpandCard.open(item.link, item.mesto);
-      }
-    }, '#card');
+    const card = new Card(data,'#card',handleExpandCard);
     // Создаём карточку и возвращаем наружу
     const cardElement = card.generateCard();
       // Добавляем в DOM
-      console.log(cardElement);
+      //console.log(cardElement);
       section.addItem(cardElement);
-      console.log(section.addItem(cardElement));
+      //console.log(section.addItem(cardElement));
   }
 }, '.cards');
 section.renderItems();
@@ -198,19 +189,10 @@ btnEditProfile.addEventListener('click', clickBtnEditProfile);
 const popupAddNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
   handleFormSubmit: (item) => {
-    // console.log(formData);
-    //section.addItem(formData);
-    const card = new Card({
-      data: item,
-      handleExpandCard: (item) => {
-        popupExpandCard.open(item.link, item.mesto);
-      }
-    }, '#card');
+    const card = new Card(data,'#card',handleExpandCard);
     const cardElement = card.generateCard();
       // Добавляем в DOM
-      console.log(cardElement);
       section.addItem(cardElement);
-      //console.log(section.addItem(cardElement));
     popupAddNewCard.close();
   }
 });
