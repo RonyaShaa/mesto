@@ -20,6 +20,7 @@ import UserInfo from "./UserInfo.js";
 
 //нашли кнопку Редактировать профиль
 const btnEditProfile = document.querySelector('.profile__button');
+console.log(btnEditProfile);
 //нашли попап редактирования профиля
 const popupEditProfile = document.querySelector('.popup_type_edit-profile')
 
@@ -147,7 +148,7 @@ addCardFormValidator.enableValidation();
 const section = new Section ({
   items: initialCards, 
   renderer: (item) => {
-    const card = new Card(data,'#card',handleExpandCard);
+    const card = new Card(item,'#card',handleExpandCard);
     // Создаём карточку и возвращаем наружу
     const cardElement = card.generateCard();
       // Добавляем в DOM
@@ -189,7 +190,7 @@ btnEditProfile.addEventListener('click', clickBtnEditProfile);
 const popupAddNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
   handleFormSubmit: (item) => {
-    const card = new Card(data,'#card',handleExpandCard);
+    const card = new Card(item,'#card',handleExpandCard);
     const cardElement = card.generateCard();
       // Добавляем в DOM
       section.addItem(cardElement);
