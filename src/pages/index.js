@@ -1,35 +1,20 @@
-import './index.css';
+import "./index.css";
 import Card from "../components/Card.js"
 import FormValidator from "../components/FormValidator.js";
-import { initialCards } from "../components/initialCards.js";
+import { initialCards } from "../utils/initialCards.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
-
- //универсальный конфиг валидации
- const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input-text',
-  submitButtonSelector: '.popup__button',
-  inactiveButtonClass: 'popup__button-disabled',  
-  inputErrorClass: 'popup__input-text_type_error',   //стили для класса невалидного инпута  
-  errorClass: 'popup__error', //класс спана с ошибкой
-};
-
-//нашли форму попапа редактировать профиль
-const profileForm = document.querySelector('.popup__form');
-//нашли кнопку Редактировать профиль
-const btnEditProfile = document.querySelector('.profile__button');
-//инпуты имя профиля и  интересы
-const nameInput = document.querySelector('.popup__input-text_type_name');
-const interestsInput =  document.querySelector('.popup__input-text_type_interests');
-//нашли кнопку открыть попап 'Добавить карточку'
-const btnAddCard = document.querySelector('.profile__add-photo');
-//форма попапа добавления карточек
-const formPopupAddCard = document.querySelector('.popup__form-card');
-
-
+import {
+  validationConfig,
+  profileForm,
+  btnEditProfile,
+  nameInput,
+  interestsInput,
+  btnAddCard,
+  formPopupAddCard
+} from "../utils/constants.js";
 
 //экземпляр попап развернуть карточку
 const PopupWithBigImage = new PopupWithImage('.popup_type_expand-card');
