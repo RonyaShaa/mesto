@@ -1,11 +1,11 @@
-import './pages/index.css';
-import Card from "./components.js/Card.js";
-import FormValidator from "./components.js/FormValidator.js";
-import { initialCards } from "./components.js/initialCards.js";
-import Section from "./components.js/Section.js";
-import PopupWithImage from "./components.js/PopupWithImage.js";
-import PopupWithForm from "./components.js/PopupWithForm.js";
-import UserInfo from "./components.js/UserInfo.js";
+import './index.css';
+import Card from "../components/Card.js"
+import FormValidator from "../components/FormValidator.js";
+import { initialCards } from "../components/initialCards.js";
+import Section from "../components/Section.js";
+import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import UserInfo from "../components/UserInfo.js";
 
  //универсальный конфиг валидации
  const validationConfig = {
