@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mesto</title>
-  <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
   <div class="page__container">
@@ -15,7 +14,7 @@
       <section class="profile">
         <img 
         class="profile__photo"
-        src="./images/photo-profile.jpg"
+        src="<%=require('./images/photo-profile.jpg')%>"
         alt="Фотография владельца профиля"
         >
         <div class="profile__info">
@@ -25,7 +24,7 @@
           type="button"
           >
             <img
-            src="./images/Edit__Button.svg"
+            src="<%=require('./images/Edit__Button.svg')%>"
             alt="Кнопка 'Редактировать профиль'"
             class="profile__edit-button"
             >
@@ -37,7 +36,7 @@
         type="button"
         >
           <img
-          src="./images/pluse.svg"
+          src="<%=require('./images/pluse.svg')%>"
           alt="Кнопка 'Добавить фото в профиль'"
           class="profile__button-pluse"
           >
@@ -144,6 +143,5 @@
       </div>
     </div> 
   </div>
-<script type="module" src="./pages/index.js"></script>
 </body>
 </html>
