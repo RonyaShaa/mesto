@@ -17,11 +17,19 @@ import {
 } from "../utils/constants.js";
 
 //экземпляр попап развернуть карточку
-const PopupWithBigImage = new PopupWithImage('.popup_type_expand-card');
-PopupWithBigImage.setEventListeners();
+const popupWithBigImage = new PopupWithImage('.popup_type_expand-card');
+popupWithBigImage.setEventListeners();
 //функция развернуть карточку
 const handleExpandCard = (name, link) => {
-  PopupWithBigImage.open(name, link);
+  popupWithBigImage.open(name, link);
+}
+
+//функция создания карточки
+const createCard = (item) => {
+  const card = new Card(item,'#card',handleExpandCard);
+  // Создаём карточку и возвращаем наружу
+  const cardElement = card.generateCard();
+  return cardElement;
 }
 
 //валидируем форму редактировать профиль
@@ -35,13 +43,10 @@ addCardFormValidator.enableValidation();
 const section = new Section ({
   items: initialCards, 
   renderer: (item) => {
-    const card = new Card(item,'#card',handleExpandCard);
-    // Создаём карточку и возвращаем наружу
-    const cardElement = card.generateCard();
-      // Добавляем в DOM
-      //console.log(cardElement);
-      section.addItem(cardElement);
-      //console.log(section.addItem(cardElement));
+    //вызываем функцию создания карточки
+    const cardElement = createCard(item);
+    // Добавляем в DOM
+    section.addItem(cardElement);
   }
 }, '.cards');
 section.renderItems();
@@ -61,8 +66,10 @@ popupProfile.setEventListeners();
 
 //функция открыть попап  редактировать профиль
 const clickBtnEditProfile = () => {
-  nameInput.value = userInfo.getUserInfo().name;
-  interestsInput.value = userInfo.getUserInfo().interests;
+
+  const {interests, name} = userInfo.getUserInfo()
+  nameInput.value = name;
+  interestsInput.value = interests;
   popupProfile.open();
   profileFormValidator.resetValidation();
 };
@@ -75,8 +82,8 @@ btnEditProfile.addEventListener('click', clickBtnEditProfile);
 const popupAddNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
   handleFormSubmit: (item) => {
-    const card = new Card(item,'#card',handleExpandCard);
-    const cardElement = card.generateCard();
+    //вызываем функцию создания карточки
+    const cardElement = createCard(item);
       // Добавляем в DOM
       section.prependItem(cardElement);
     popupAddNewCard.close();
@@ -87,4 +94,5 @@ popupAddNewCard.setEventListeners();
 //слушатель клика по кнопке 'Добавить карточку' с вызовом функции открыть попап
 btnAddCard.addEventListener('click',  () => {
   popupAddNewCard.open();
+  addCardFormValidator.resetValidation();
 });

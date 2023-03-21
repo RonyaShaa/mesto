@@ -21,10 +21,13 @@ class Card {
   // Запишем разметку в приватное поле _element. 
   // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
+    this._cardImage = this._element.querySelector('.card__photo');
+    this._cardLike = this._element.querySelector('.card__like');
+    this._cardDelete = this._element.querySelector('.card__delete');
     this._setEventListeners();
   // Добавим данные
-    this._element.querySelector('.card__photo').src = this._link;
-    this._element.querySelector('.card__photo').alt = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
     this._element.querySelector('.card__name').textContent = this._name;
    
     return this._element;
@@ -32,25 +35,25 @@ class Card {
   //установка слушателей
   _setEventListeners() {
     //слушатель кнопки лайк
-    this._element.querySelector('.card__like').addEventListener('click', () => {
+    this._cardLike.addEventListener('click', () => {
       this._handleLikeClick();
     });
     //слушатель кнопки удалить
-    this._element.querySelector('.card__delete').addEventListener('click', () => {
+    this._cardDelete.addEventListener('click', () => {
       this._handleDeleteClick();
     });
     //слушатель клика по карточке с вызовом функции развернуть карточку
-    this._element.querySelector('.card__photo').addEventListener('click', () => {
+    this._cardImage.addEventListener('click', () => {
       this._handleExpandCard(this._name, this._link);
     });
   };
   //переключатель лайка
   _handleLikeClick(){
-    this._element.querySelector('.card__like').classList.toggle('card__like_active');
+    this._cardLike.classList.toggle('card__like_active');
   };
   //функция удалить карточку
   _handleDeleteClick(){
-    this._element.querySelector('.card__delete').closest('.card').remove();
+    this._cardDelete.closest('.card').remove();
   };
 };
 
