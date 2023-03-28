@@ -12,11 +12,13 @@
     </header>
     <main class="content">
       <section class="profile">
-        <img 
-        class="profile__photo"
-        src="<%=require('./images/photo-profile.jpg')%>"
-        alt="Фотография владельца профиля"
-        >
+        <div class="profile__button-avatar">
+          <img 
+          class="profile__photo"
+          src="<%=require('./images/photo-profile.jpg')%>"
+          alt="Фотография владельца профиля"
+          >
+        </div>
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button 
@@ -64,11 +66,14 @@
         >
         <div class="card__place">
           <h2 class="card__name"></h2>
-          <button
-          class="card__like"
-          type="button"
-          >
-          </button>
+          <div class="card__like-container">
+            <button
+            class="card__like"
+            type="button"
+            >
+            </button>
+            <div class="card__like-counter">1</div>
+          </div>
         </div>
       </article>
     </template>
@@ -109,7 +114,7 @@
       <div class="popup__container">
         <button class="popup__close popup__close_add_card" type="button"></button>
         <h2 class="popup__name">Новое место</h2>
-        <form class="popup__form popup__form-card" name="formPopup" > <!--novalidate--> 
+        <form class="popup__form popup__form-card" name="formPopup" > 
           <input
           id="input-mesto"
           type="text"
@@ -142,6 +147,33 @@
         <h2 class="popup__photo-name"></h2>
       </div>
     </div> 
+    <!-- попап Удалить карточку -->
+    <div class="popup popup_type_delete-card">
+      <div class="popup__container">
+        <button class="popup__close popup__close_delete-card" type="button"></button>
+        <h2 class="popup__name">Вы уверены?</h2>
+        <button class="popup__button-yes" type="button">Да</button>
+      </div>
+    </div>
+    <!-- попап Обновить фото профиля -->
+    <div class="popup popup_type_update-avatar popup_opened">
+      <div class="popup__container">
+        <button class="popup__close popup__close_update-avatar" type="button"></button>
+        <h2 class="popup__name">Обновить аватар</h2>
+        <form class="popup__form popup__form-update-avatar" name="formPopup" > <!--novalidate--> 
+          <input
+          id="input-update-avatar"
+          type="url"
+          class="popup__input-text popup__input-text_type_update-avatar"
+          placeholder="Ссылка на картинку"
+          name="link"
+          required
+          >
+          <span id="input-link-error" class="popup__error"></span>
+          <button class="popup__button" type="submit">Сохранить</button> 
+        </form>
+      </div>
+    </div>
   </div>
 </body>
 </html>
