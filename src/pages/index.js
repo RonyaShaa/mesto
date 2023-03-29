@@ -1,11 +1,12 @@
 import "./index.css";
 import Card from "../components/Card.js"
 import FormValidator from "../components/FormValidator.js";
-import { initialCards } from "../utils/initialCards.js";
+//import { initialCards } from "../utils/initialCards.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import {
   validationConfig,
   profileForm,
@@ -13,7 +14,7 @@ import {
   nameInput,
   interestsInput,
   btnAddCard,
-  formPopupAddCard
+  formPopupAddCard,
 } from "../utils/constants.js";
 
 //экземпляр попап развернуть карточку
@@ -39,20 +40,9 @@ profileFormValidator.enableValidation();
 const addCardFormValidator = new FormValidator(validationConfig,formPopupAddCard);
 addCardFormValidator.enableValidation();
 
-//добавим дефолтные карточки на страницу
-const section = new Section ({
-  items: initialCards, 
-  renderer: (item) => {
-    //вызываем функцию создания карточки
-    const cardElement = createCard(item);
-    // Добавляем в DOM
-    section.addItem(cardElement);
-  }
-}, '.cards');
-section.renderItems();
 
-//экземпляр юзеринфо
-const userInfo = new UserInfo({name: '.profile__name', interests: '.profile__interests'});
+
+
 
 //экземпляр попап редактировать профиль
 const popupProfile = new PopupWithForm({
@@ -96,3 +86,36 @@ btnAddCard.addEventListener('click',  () => {
   popupAddNewCard.open();
   addCardFormValidator.resetValidation();
 });
+
+const api = new Api({
+  url: "https://mesto.nomoreparties.co/v1/cohort-62",
+  headers: {
+    'content-type': 'application/json',
+    authorization: '42690f73-759c-4798-9db6-9b61cef90de2',
+  }
+});
+
+const cards = api.getInitialCards();
+cards.then((data) => {
+  //добавим дефолтные карточки на страницу
+const section = new Section ({
+  // items: initialCards
+  data, 
+  renderer: (item) => {
+    //вызываем функцию создания карточки
+    const cardElement = createCard(item);
+    // Добавляем в DOM
+    section.addItem(cardElement);
+  }
+}, '.cards');
+section.renderItems();
+})
+.catch((err) => {
+  console.log(err); // выведем ошибку в консоль
+}); 
+
+// const userInform = api.getUserInfo();
+// userInform.then((data) => {
+//   //экземпляр юзеринфо
+//   const userInfo = new UserInfo({name: '.profile__name', interests: '.profile__interests'});
+// })
