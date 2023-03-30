@@ -32,23 +32,26 @@ class Api {
   }
 
   //редактирование данных профиля
-  editUserInfo({name, about}){
+  editUserInfo(data){
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body:  JSON.stringify({name, about})
+      body:  JSON.stringify({
+        name: data.name,
+        about: data.about
+      }),
     })
     .then(this._checkResponse);
   }
 
   //добавление новой карточки
-  addNewCard(dataCard) {
+  addNewCard(data) {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
       body:  JSON.stringify({
-        name: dataCard.name,
-        link: dataCard.link,
+        name: data.name,
+        link: data.link
       })
     })
     .then(this._checkResponse);
