@@ -80,17 +80,16 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 //экземпляр попап редактировать профиль
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
-  handleFormSubmit: (/*{name, interests}*/userData) => {
-    console.log(userData);//сюда приходят новые данные из инпутов
+  handleFormSubmit: (userData) => {
+    //сюда приходят новые данные из инпутов(name,about)
     api.editUserInfo(userData) //вызываем метод патч чтобы внести изменения и на сервере
     .then((userData) => {
-      userInfo.setUserInfo(/*name, interests*/userData); //обрабатываем данные и возвращаем
+      userInfo.setUserInfo(userData); //обрабатываем данные и возвращаем
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
    });
-    // userInfo.setUserInfo(/*name, interests*/userData);
-    // popupProfile.close();
+    //закрываем попап
     popupProfile.close();
   }
 });
@@ -116,11 +115,20 @@ btnEditProfile.addEventListener('click', clickBtnEditProfile);
 //экземпляр попап добавить карточку
 const popupAddNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
-  handleFormSubmit: (item) => {
-    //вызываем функцию создания карточки
-    const cardElement = createCard(item);
-      // Добавляем в DOM
-      section.prependItem(cardElement);
+  handleFormSubmit: (cardData) => {
+    //сюда приходят данные с инпутов формы(name,link)
+    console.log(cardData);
+    api.addNewCard(cardData)//вызываем метод post чтобы добавить на сервер новую карточку
+    .then((cardData) => {
+       //вызываем функцию создания карточки
+       const cardElement = createCard(cardData);
+       // Добавляем в DOM
+       section.prependItem(cardElement);
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+   });
+    //закрываем попап
     popupAddNewCard.close();
   }
 });
