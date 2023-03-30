@@ -1,7 +1,7 @@
 class Card {
-  constructor(data, templateSelector, handleExpandCard) {
-    this._name = data.name;
-    this._link = data.link;
+  constructor(items, templateSelector, handleExpandCard) {
+    this._name = items.name;
+    this._link = items.link;
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
   };

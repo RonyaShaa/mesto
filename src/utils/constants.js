@@ -20,3 +20,4 @@ export const formPopupAddCard = document.querySelector('.popup__form-card');
 export const nameInput = document.querySelector('.popup__input-text_type_name');
 export const interestsInput =  document.querySelector('.popup__input-text_type_interests');
 
+

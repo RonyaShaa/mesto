@@ -11,9 +11,9 @@ class UserInfo{
     };
   }
 // метод принимает новые данные пользователя и добавляет их на страницу
-  setUserInfo(name, interests){
-    this._name.textContent = name;
-    this._interests.textContent = interests;
+  setUserInfo(userData){
+    this._name.textContent = userData.name;
+    this._interests.textContent = userData.about;
   }
 }
 

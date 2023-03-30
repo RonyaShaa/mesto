@@ -17,13 +17,6 @@ import {
   formPopupAddCard,
 } from "../utils/constants.js";
 
-//экземпляр попап развернуть карточку
-const popupWithBigImage = new PopupWithImage('.popup_type_expand-card');
-popupWithBigImage.setEventListeners();
-//функция развернуть карточку
-const handleExpandCard = (name, link) => {
-  popupWithBigImage.open(name, link);
-}
 
 //функция создания карточки
 const createCard = (item) => {
@@ -32,6 +25,49 @@ const createCard = (item) => {
   const cardElement = card.generateCard();
   return cardElement;
 }
+//добавим дефолтные карточки на страницу
+const section = new Section ({
+  renderer: (item) => {
+    //вызываем функцию создания карточки
+    const cardElement = createCard(item);
+    // Добавляем в DOM
+    section.addItem(cardElement);
+  }
+}, '.cards');
+
+// экземпляр юзеринфо
+const userInfo = new UserInfo({name: '.profile__name', interests: '.profile__interests'});
+
+const api = new Api({
+  baseUrl: "https://mesto.nomoreparties.co/v1/cohort-62",
+  headers: {
+    'content-type': 'application/json',
+    authorization: '42690f73-759c-4798-9db6-9b61cef90de2',
+  }
+});
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(data => {
+    const userData = data[0];//получим данные о пользователе
+    const cardData = data[1];//получим карточки с сервера
+    userInfo.setUserInfo(userData);
+    section.renderItems(cardData);
+    debugger;
+})
+.catch((err) => {
+   console.log(err); // выведем ошибку в консоль
+});
+
+//функция развернуть карточку
+const handleExpandCard = (name, link) => {
+  popupWithBigImage.open(name, link);
+}
+
+
+//экземпляр попап развернуть карточку
+const popupWithBigImage = new PopupWithImage('.popup_type_expand-card');
+popupWithBigImage.setEventListeners();
+
 
 //валидируем форму редактировать профиль
 const profileFormValidator = new FormValidator(validationConfig,profileForm);
@@ -39,10 +75,6 @@ profileFormValidator.enableValidation();
 //валидируем форму добавить карточку
 const addCardFormValidator = new FormValidator(validationConfig,formPopupAddCard);
 addCardFormValidator.enableValidation();
-
-
-
-
 
 //экземпляр попап редактировать профиль
 const popupProfile = new PopupWithForm({
@@ -87,35 +119,3 @@ btnAddCard.addEventListener('click',  () => {
   addCardFormValidator.resetValidation();
 });
 
-const api = new Api({
-  url: "https://mesto.nomoreparties.co/v1/cohort-62",
-  headers: {
-    'content-type': 'application/json',
-    authorization: '42690f73-759c-4798-9db6-9b61cef90de2',
-  }
-});
-
-const cards = api.getInitialCards();
-cards.then((data) => {
-  //добавим дефолтные карточки на страницу
-const section = new Section ({
-  // items: initialCards
-  data, 
-  renderer: (item) => {
-    //вызываем функцию создания карточки
-    const cardElement = createCard(item);
-    // Добавляем в DOM
-    section.addItem(cardElement);
-  }
-}, '.cards');
-section.renderItems();
-})
-.catch((err) => {
-  console.log(err); // выведем ошибку в консоль
-}); 
-
-// const userInform = api.getUserInfo();
-// userInform.then((data) => {
-//   //экземпляр юзеринфо
-//   const userInfo = new UserInfo({name: '.profile__name', interests: '.profile__interests'});
-// })
