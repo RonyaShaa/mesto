@@ -5,6 +5,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithSubmit from "../components/PopupWithSubmit.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 import {
@@ -36,7 +37,7 @@ addCardFormValidator.enableValidation();
 
 //функция создания карточки
 const createCard = (item) => {
-  const card = new Card(item,'#card',handleExpandCard);
+  const card = new Card(item,'#card',handleExpandCard, popupWithSubmit);
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
   return cardElement;
@@ -139,4 +140,8 @@ btnAddCard.addEventListener('click',  () => {
   popupAddNewCard.open();
   addCardFormValidator.resetValidation();
 });
+
+
+//экземпляр попапа подтверждения удаления карточки
+const popupWithSubmit = new PopupWithSubmit({popupSelector: '.popup_type_delete-card'});
 

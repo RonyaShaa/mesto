@@ -1,9 +1,14 @@
+import PopupWithForm from "./PopupWithForm";
+import PopupWithSubmit from "./PopupWithSubmit";
+
 class Card {
-  constructor(items, templateSelector, handleExpandCard) {
+  constructor(items, templateSelector, handleExpandCard, popupWithSubmit) {
     this._name = items.name;
     this._link = items.link;
+    this._likes = items.likes;
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
+    this._popupDeleteCard = popupWithSubmit;
   };
   //создаем разметку
   _getTemplate(){
@@ -23,6 +28,9 @@ class Card {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.card__photo');
     this._cardLike = this._element.querySelector('.card__like');
+    this._likeConter = this._element.querySelector('.card__like-counter');
+    //запишем сколько лайков у карточки
+    this._likeConter.textContent = this._likes.length;
     this._cardDelete = this._element.querySelector('.card__delete');
     this._setEventListeners();
   // Добавим данные
@@ -40,6 +48,7 @@ class Card {
     });
     //слушатель кнопки удалить
     this._cardDelete.addEventListener('click', () => {
+      this._popupDeleteCard.open();
       this._handleDeleteClick();
     });
     //слушатель клика по карточке с вызовом функции развернуть карточку
