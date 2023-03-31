@@ -161,3 +161,4 @@ const popupWithSubmit = new PopupWithSubmit({
 });
 popupWithSubmit.setEventListeners();
 
+console.log(popupWithSubmit);

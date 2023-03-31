@@ -9,7 +9,6 @@ class Card {
     this._cardId = items._id; //айди карточки
     this._ownerId = items.owner._id; //айди создателя карточки
     this._userId = userId; //мой айди
-    console.log(this._cardId, this._ownerId, this._userId);
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
     this._popupDeleteCard = popupWithSubmit;
