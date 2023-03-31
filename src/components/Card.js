@@ -55,7 +55,7 @@ class Card {
     });
     //слушатель кнопки удалить
     this._cardDelete.addEventListener('click', () => {
-      this._popupDeleteCard.open(this._cardId, this._element);
+      this._popupDeleteCard.open(this._cardId, this);
     // теперь удаляем карточку только после того как пользователь нажал ДА
     // this._handleDeleteClick();
     });
