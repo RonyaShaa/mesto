@@ -12,7 +12,7 @@ class PopupWithSubmit extends Popup{
   }
   setEventListeners(){
     super.setEventListeners();
-    this._popup.addEventListener('submit', (evt) => {
+    this._popup.addEventListener('click', (evt) => {
       evt.preventDefault();
       this._handleWithSubmit(this._cardId, this._card);
     });
