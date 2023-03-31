@@ -1,7 +1,7 @@
 class UserInfo{
   constructor({name, about}){
     this._name = document.querySelector(name);
-    this._about = document.querySelector(about)
+    this._about = document.querySelector(about);
   }
 //метод возвращает объект с данными пользователя
   getUserInfo(){
@@ -15,6 +15,7 @@ class UserInfo{
     this._name.textContent = userData.name;
     this._about.textContent = userData.about;
   }
+
 }
 
 export default UserInfo;

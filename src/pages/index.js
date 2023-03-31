@@ -16,8 +16,9 @@ import {
   interestsInput,
   btnAddCard,
   formPopupAddCard,
+  userID,
 } from "../utils/constants.js";
-
+let userId;
 //функция развернуть карточку
 const handleExpandCard = (name, link) => {
   popupWithBigImage.open(name, link);
@@ -37,7 +38,7 @@ addCardFormValidator.enableValidation();
 
 //функция создания карточки
 const createCard = (item) => {
-  const card = new Card(item,'#card',handleExpandCard, popupWithSubmit);
+  const card = new Card(item,'#card',handleExpandCard, popupWithSubmit, userId, api);
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
   return cardElement;
@@ -55,6 +56,7 @@ const section = new Section ({
 // экземпляр юзеринфо
 const userInfo = new UserInfo({name: '.profile__name', about: '.profile__interests'});
 
+
 //экземпляр апи
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-62",
@@ -69,6 +71,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(data => {
     const userData = data[0];//получим данные о пользователе
     const cardData = data[1];//получим карточки с сервера
+    userId = userData._id; //получим айди пользователя????
     userInfo.setUserInfo(userData);//вернем данные о пользователе
     section.renderItems(cardData);//вернем исходные карточки
 })
@@ -143,5 +146,18 @@ btnAddCard.addEventListener('click',  () => {
 
 
 //экземпляр попапа подтверждения удаления карточки
-const popupWithSubmit = new PopupWithSubmit({popupSelector: '.popup_type_delete-card'});
+const popupWithSubmit = new PopupWithSubmit({
+  popupSelector: '.popup_type_delete-card',
+  handleWithSubmit: (cardId, card)=> {
+    api.deleteCard(cardId)
+    .then(()=> {
+      popupWithSubmit.close();
+      card.handleDeleteClick();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+   });
+  }
+});
+popupWithSubmit.setEventListeners();
 
