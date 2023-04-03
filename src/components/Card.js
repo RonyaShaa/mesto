@@ -13,8 +13,8 @@ class Card {
     this._handleExpandCard = handleExpandCard;
     this._popupDeleteCard = popupWithSubmit;
     this._handleLikeClick = handleLikeClick
-    this._isLiked;
   };
+
   //создаем разметку
   _getTemplate(){
     
@@ -26,6 +26,7 @@ class Card {
 
     return card;
   };
+
   // Функция создает и возвращает карточку
   generateCard(){
   // Запишем разметку в приватное поле _element. 
@@ -54,6 +55,7 @@ class Card {
     this._element.querySelector('.card__name').textContent = this._name;
     return this._element;
   };
+
   //установка слушателей
   _setEventListeners() {
     //слушатель кнопки лайк
@@ -81,6 +83,7 @@ class Card {
   setLikesCount(data){ 
   //запишем сколько лайков у карточки
   this._likeCounter.textContent = data.length;
+  
   }
 
   //проверяем лайкнута ли карточка 
@@ -88,10 +91,12 @@ class Card {
     //пройдем по массиву лайков и проверим наличие лайка юзера
     return this._likes.some((like) => like._id === this._userId)
   }
+
   //установим лайк
   setLike(){
     this._cardLike.classList.add('card__like_active'); 
   }
+
   //удалим лайк
   deleteLike(){
     this._cardLike.classList.remove('card__like_active');

@@ -51,10 +51,9 @@ const createCard = (item) => {
   const card = new Card(item,'#card',handleExpandCard, popupWithSubmit, userId, 
   {
     handleLikeClick: () => {
-      if(console.log(card.isCardLike())) {
+      if(card.isCardLike()) {
         api.deleteLike(card.getCardId())
         .then((data) => {
-          debugger;
           card.setLikesCount(data.likes);
           card.deleteLike();
         })
@@ -64,7 +63,6 @@ const createCard = (item) => {
       } else {
         api.putLike(card.getCardId())
         .then((data) => {
-          debugger;
           card.setLikesCount(data.likes); 
           card.setLike();
         })
@@ -109,7 +107,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
     userId = userData._id; //получим айди пользователя
     userInfo.setUserInfo(userData);//вернем данные о пользователе
     section.renderItems(cardData);//вернем исходные карточки
-    debugger;
 })
 .catch((err) => {
    console.log(err); // выведем ошибку в консоль
@@ -196,7 +193,7 @@ const popupWithSubmit = new PopupWithSubmit({
 });
 popupWithSubmit.setEventListeners();
 
-
+//экземпляр попапа Редактировать аваторку
 const popupEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_update-avatar',
   //сюда в cardData приходит ссылка на аватарку из инпута
