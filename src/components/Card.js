@@ -2,7 +2,7 @@ import PopupWithForm from "./PopupWithForm";
 import PopupWithSubmit from "./PopupWithSubmit";
 
 class Card {
-  constructor(items, templateSelector, handleExpandCard, popupWithSubmit, userId, api) {
+  constructor(items, templateSelector, handleExpandCard, popupWithSubmit, userId, {handleLikeClick}) {
     this._name = items.name;
     this._link = items.link;
     this._likes = items.likes;
@@ -12,7 +12,7 @@ class Card {
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
     this._popupDeleteCard = popupWithSubmit;
-    this._api = api;
+    this._handleLikeClick = handleLikeClick
   };
   //создаем разметку
   _getTemplate(){
@@ -33,12 +33,19 @@ class Card {
     this._cardImage = this._element.querySelector('.card__photo');
     this._cardLike = this._element.querySelector('.card__like');
     this._likeConter = this._element.querySelector('.card__like-counter');
-    //запишем сколько лайков у карточки
-    this._likeConter.textContent = this._likes.length;
+    
     //запишем иконку удаление 
     this._cardDelete = this._element.querySelector('.card__delete');
     //вызовем проверку айди чтобы удалить корзинку на чужих карточках
     this._checkId();
+    // выведем количество лайков
+    this._likeConter.textContent = this._likes.length;
+    //проверим была ли карточка лайкнула если да закрасим лайк и наоборот
+    if(this.isCardLike()){
+      this.setLike();
+    } else {
+      this.deleteLike();
+    }
     this._setEventListeners();
   // Добавим данные
     this._cardImage.src = this._link;
@@ -63,10 +70,35 @@ class Card {
       this._handleExpandCard(this._name, this._link);
     });
   };
+  
+  //вернем айди карточки
+  getCardId(){
+    return this._cardId;
+  }
+  
+  //счетчик количества лайков
+  setLikesCount(data){ 
+  //запишем сколько лайков у карточки
+  this._likeConter.textContent = data.length;
+  }
+
+  //проверяем лайкнута ли карточка 
+  isCardLike(){
+    //пройдем по массиву лайков и проверим наличие лайка юзера
+    return this._likes.some((like) => like._id === this._userId)
+  }
+  //установим лайк
+  setLike(){
+    this._cardLike.classList.add('card__like_active'); 
+  }
+  //удалим лайк
+  deleteLike(){
+    this._cardLike.classList.remove('card__like_active');
+  }
   //переключатель лайка
-  _handleLikeClick(){
-    this._cardLike.classList.toggle('card__like_active');
-  };
+  // _handleLikeClick(){
+  //   this._cardLike.classList.toggle('card__like_active');  
+  // };
 
   //метод проверит айди и удалит кнопку корзины на чужих
   _checkId() {
@@ -74,6 +106,7 @@ class Card {
       this._cardDelete.remove();
     }
   }
+
   //функция удалить карточку
   handleDeleteClick(){
     this._cardDelete.closest('.card').remove(); 

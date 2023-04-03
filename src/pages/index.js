@@ -16,13 +16,16 @@ import {
   interestsInput,
   btnAddCard,
   formPopupAddCard,
-  userID,
 } from "../utils/constants.js";
 let userId;
+
+
 //функция развернуть карточку
 const handleExpandCard = (name, link) => {
   popupWithBigImage.open(name, link);
 }
+
+
 
 //экземпляр попап развернуть карточку
 const popupWithBigImage = new PopupWithImage('.popup_type_expand-card');
@@ -38,7 +41,30 @@ addCardFormValidator.enableValidation();
 
 //функция создания карточки
 const createCard = (item) => {
-  const card = new Card(item,'#card',handleExpandCard, popupWithSubmit, userId, api);
+  const card = new Card(item,'#card',handleExpandCard, popupWithSubmit, userId, 
+  {
+    handleLikeClick: () => {
+      if(card.isCardLike()) {
+        api.deleteLike(card.getCardId())
+        .then((data) => {
+          card.setLikesCount(data.likes);
+          card.deleteLike();
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        })
+      } else {
+        api.putLike(card.getCardId())
+        .then((data) => {
+          card.setLikesCount(data.likes); 
+          card.setLike();
+        })
+        .catch((err) => {
+          console.log(err); // выведем ошибку в консоль
+        })
+      }
+    }
+  });
   // Создаём карточку и возвращаем наружу
   const cardElement = card.generateCard();
   return cardElement;
@@ -121,7 +147,6 @@ const popupAddNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
   handleFormSubmit: (cardData) => {
     //сюда приходят данные с инпутов формы(name,link)
-    console.log(cardData);
     api.addNewCard(cardData)//вызываем метод post чтобы добавить на сервер новую карточку
     .then((cardData) => {
        //вызываем функцию создания карточки
@@ -160,5 +185,3 @@ const popupWithSubmit = new PopupWithSubmit({
   }
 });
 popupWithSubmit.setEventListeners();
-
-console.log(popupWithSubmit);
