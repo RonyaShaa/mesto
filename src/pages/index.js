@@ -16,8 +16,11 @@ import {
   interestsInput,
   btnAddCard,
   formPopupAddCard,
+  btnEditAvatar,
+  avatarForm
 } from "../utils/constants.js";
 let userId;
+let userAvatar;
 
 
 //функция развернуть карточку
@@ -38,15 +41,20 @@ profileFormValidator.enableValidation();
 //валидируем форму добавить карточку
 const addCardFormValidator = new FormValidator(validationConfig,formPopupAddCard);
 addCardFormValidator.enableValidation();
+//валидируем форму Релактировать аватар
+const avatarFormValidator = new FormValidator(validationConfig, avatarForm);
+avatarFormValidator.enableValidation();
+
 
 //функция создания карточки
 const createCard = (item) => {
   const card = new Card(item,'#card',handleExpandCard, popupWithSubmit, userId, 
   {
     handleLikeClick: () => {
-      if(card.isCardLike()) {
+      if(console.log(card.isCardLike())) {
         api.deleteLike(card.getCardId())
         .then((data) => {
+          debugger;
           card.setLikesCount(data.likes);
           card.deleteLike();
         })
@@ -56,6 +64,7 @@ const createCard = (item) => {
       } else {
         api.putLike(card.getCardId())
         .then((data) => {
+          debugger;
           card.setLikesCount(data.likes); 
           card.setLike();
         })
@@ -80,7 +89,7 @@ const section = new Section ({
 }, '.cards');
 
 // экземпляр юзеринфо
-const userInfo = new UserInfo({name: '.profile__name', about: '.profile__interests'});
+const userInfo = new UserInfo({name: '.profile__name', about: '.profile__interests', avatar: '.profile__photo'});
 
 
 //экземпляр апи
@@ -97,9 +106,10 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
   .then(data => {
     const userData = data[0];//получим данные о пользователе
     const cardData = data[1];//получим карточки с сервера
-    userId = userData._id; //получим айди пользователя????
+    userId = userData._id; //получим айди пользователя
     userInfo.setUserInfo(userData);//вернем данные о пользователе
     section.renderItems(cardData);//вернем исходные карточки
+    debugger;
 })
 .catch((err) => {
    console.log(err); // выведем ошибку в консоль
@@ -185,3 +195,27 @@ const popupWithSubmit = new PopupWithSubmit({
   }
 });
 popupWithSubmit.setEventListeners();
+
+
+const popupEditAvatar = new PopupWithForm({
+  popupSelector: '.popup_type_update-avatar',
+  //сюда в cardData приходит ссылка на аватарку из инпута
+  handleFormSubmit: (cardData) => {
+    console.log(cardData);
+    api.editAvatar(cardData)
+    .then((cardData) => {
+      userInfo.editAvatar(cardData);
+      popupEditAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err); // выведем ошибку в консоль
+   });
+  }
+});
+popupEditAvatar.setEventListeners();
+
+
+btnEditAvatar.addEventListener('click',  () => {
+  popupEditAvatar.open();
+  avatarFormValidator.resetValidation();
+});

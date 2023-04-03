@@ -13,6 +13,7 @@ class Card {
     this._handleExpandCard = handleExpandCard;
     this._popupDeleteCard = popupWithSubmit;
     this._handleLikeClick = handleLikeClick
+    this._isLiked;
   };
   //создаем разметку
   _getTemplate(){
@@ -32,14 +33,14 @@ class Card {
     this._element = this._getTemplate();
     this._cardImage = this._element.querySelector('.card__photo');
     this._cardLike = this._element.querySelector('.card__like');
-    this._likeConter = this._element.querySelector('.card__like-counter');
+    this._likeCounter = this._element.querySelector('.card__like-counter');
     
     //запишем иконку удаление 
     this._cardDelete = this._element.querySelector('.card__delete');
     //вызовем проверку айди чтобы удалить корзинку на чужих карточках
     this._checkId();
     // выведем количество лайков
-    this._likeConter.textContent = this._likes.length;
+    this._likeCounter.textContent = this._likes.length;
     //проверим была ли карточка лайкнула если да закрасим лайк и наоборот
     if(this.isCardLike()){
       this.setLike();
@@ -79,7 +80,7 @@ class Card {
   //счетчик количества лайков
   setLikesCount(data){ 
   //запишем сколько лайков у карточки
-  this._likeConter.textContent = data.length;
+  this._likeCounter.textContent = data.length;
   }
 
   //проверяем лайкнута ли карточка 

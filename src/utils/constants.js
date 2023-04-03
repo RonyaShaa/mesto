@@ -19,4 +19,7 @@ export const formPopupAddCard = document.querySelector('.popup__form-card');
 //инпуты имя профиля и интересы
 export const nameInput = document.querySelector('.popup__input-text_type_name');
 export const interestsInput =  document.querySelector('.popup__input-text_type_interests');
-
+//кнопка редактировать аватарку
+export const btnEditAvatar = document.querySelector('.profile__button-avatar');
+//форма попап редактировать аватарку
+export const avatarForm = document.querySelector('.popup__form-update-avatar');
