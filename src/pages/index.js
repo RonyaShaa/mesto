@@ -20,7 +20,7 @@ import {
   avatarForm
 } from "../utils/constants.js";
 let userId;
-let userAvatar;
+
 
 
 //функция развернуть карточку
@@ -54,8 +54,11 @@ const createCard = (item) => {
       if(card.isCardLike()) {
         api.deleteLike(card.getCardId())
         .then((data) => {
+          console.log(data);
           card.setLikesCount(data.likes);
           card.deleteLike();
+          card.likes = data.likes;
+          console.log(card.likes);
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
@@ -65,6 +68,7 @@ const createCard = (item) => {
         .then((data) => {
           card.setLikesCount(data.likes); 
           card.setLike();
+          card.likes = data.likes;
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
@@ -76,6 +80,7 @@ const createCard = (item) => {
   const cardElement = card.generateCard();
   return cardElement;
 }
+
 //добавим дефолтные карточки на страницу
 const section = new Section ({
   renderer: (item) => {

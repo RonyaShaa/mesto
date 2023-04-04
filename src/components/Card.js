@@ -5,14 +5,14 @@ class Card {
   constructor(items, templateSelector, handleExpandCard, popupWithSubmit, userId, {handleLikeClick}) {
     this._name = items.name;
     this._link = items.link;
-    this._likes = items.likes;
+    this.likes = items.likes;
     this._cardId = items._id; //айди карточки
     this._ownerId = items.owner._id; //айди создателя карточки
     this._userId = userId; //мой айди
     this._templateSelector = templateSelector;
     this._handleExpandCard = handleExpandCard;
     this._popupDeleteCard = popupWithSubmit;
-    this._handleLikeClick = handleLikeClick
+    this._handleLikeClick = handleLikeClick;
   };
 
   //создаем разметку
@@ -32,22 +32,22 @@ class Card {
   // Запишем разметку в приватное поле _element. 
   // Так у других элементов появится доступ к ней.
     this._element = this._getTemplate();
-    this._cardImage = this._element.querySelector('.card__photo');
-    this._cardLike = this._element.querySelector('.card__like');
-    this._likeCounter = this._element.querySelector('.card__like-counter');
-    
-    //запишем иконку удаление 
-    this._cardDelete = this._element.querySelector('.card__delete');
+    this._cardImage = this._element.querySelector('.card__photo'); //картинка
+    this._cardLike = this._element.querySelector('.card__like'); //кнопка лайк
+    this._likeCounter = this._element.querySelector('.card__like-counter'); //количество лайков
+    this._cardDelete = this._element.querySelector('.card__delete'); //иконка удаление 
     //вызовем проверку айди чтобы удалить корзинку на чужих карточках
     this._checkId();
     // выведем количество лайков
-    this._likeCounter.textContent = this._likes.length;
+    this._likeCounter.textContent = this.likes.length;
     //проверим была ли карточка лайкнула если да закрасим лайк и наоборот
     if(this.isCardLike()){
       this.setLike();
     } else {
       this.deleteLike();
     }
+
+    // this.setLikesCount(this._likes);
     this._setEventListeners();
   // Добавим данные
     this._cardImage.src = this._link;
@@ -83,13 +83,12 @@ class Card {
   setLikesCount(data){ 
   //запишем сколько лайков у карточки
   this._likeCounter.textContent = data.length;
-  
   }
 
   //проверяем лайкнута ли карточка 
   isCardLike(){
     //пройдем по массиву лайков и проверим наличие лайка юзера
-    return this._likes.some((like) => like._id === this._userId)
+    return this.likes.some((like) => like._id === this._userId)
   }
 
   //установим лайк
