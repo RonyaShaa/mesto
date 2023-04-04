@@ -55,11 +55,9 @@ const createCard = (item) => {
       if(card.isCardLike()) {
         api.deleteLike(card.getCardId())
         .then((data) => {
-          console.log(data);
           card.setLikesCount(data.likes);
           card.deleteLike();
           card.likes = data.likes;
-          console.log(card.likes);
         })
         .catch((err) => {
           console.log(err); // выведем ошибку в консоль
