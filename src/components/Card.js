@@ -1,6 +1,3 @@
-import PopupWithForm from "./PopupWithForm";
-import PopupWithSubmit from "./PopupWithSubmit";
-
 class Card {
   constructor(items, templateSelector, handleExpandCard, popupWithSubmit, userId, {handleLikeClick}) {
     this._name = items.name;
@@ -81,8 +78,8 @@ class Card {
   
   //счетчик количества лайков
   setLikesCount(data){ 
-  //запишем сколько лайков у карточки
-  this._likeCounter.textContent = data.length;
+    //запишем сколько лайков у карточки
+    this._likeCounter.textContent = data.length;
   }
 
   //проверяем лайкнута ли карточка 

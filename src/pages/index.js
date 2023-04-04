@@ -1,7 +1,6 @@
 import "./index.css";
 import Card from "../components/Card.js"
 import FormValidator from "../components/FormValidator.js";
-//import { initialCards } from "../utils/initialCards.js";
 import Section from "../components/Section.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
@@ -18,23 +17,17 @@ import {
   formPopupAddCard,
   btnEditAvatar,
   avatarForm,
-  popupButton
 } from "../utils/constants.js";
 let userId;
-
-
 
 //функция развернуть карточку
 const handleExpandCard = (name, link) => {
   popupWithBigImage.open(name, link);
 }
 
-
-
 //экземпляр попап развернуть карточку
 const popupWithBigImage = new PopupWithImage('.popup_type_expand-card');
 popupWithBigImage.setEventListeners();
-
 
 //валидируем форму редактировать профиль
 const profileFormValidator = new FormValidator(validationConfig,profileForm);
@@ -45,7 +38,6 @@ addCardFormValidator.enableValidation();
 //валидируем форму Релактировать аватар
 const avatarFormValidator = new FormValidator(validationConfig, avatarForm);
 avatarFormValidator.enableValidation();
-
 
 //функция создания карточки
 const createCard = (item) => {
@@ -93,7 +85,6 @@ const section = new Section ({
 // экземпляр юзеринфо
 const userInfo = new UserInfo({name: '.profile__name', about: '.profile__interests', avatar: '.profile__photo'});
 
-
 //экземпляр апи
 const api = new Api({
   baseUrl: "https://mesto.nomoreparties.co/v1/cohort-62",
@@ -116,8 +107,6 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
    console.log(err); // выведем ошибку в консоль
 });
 
-
-
 //экземпляр попап редактировать профиль
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
@@ -127,6 +116,8 @@ const popupProfile = new PopupWithForm({
     api.editUserInfo(userData) //вызываем метод патч чтобы внести изменения и на сервере
     .then((userData) => {
       userInfo.setUserInfo(userData); //обрабатываем данные и возвращаем
+       //закрываем попап
+      popupProfile.close();
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -134,13 +125,9 @@ const popupProfile = new PopupWithForm({
    .finally(()=>{
      popupProfile.renderLoading('Сохранить')
    });
-    //закрываем попап
-    popupProfile.close();
   }
 });
 popupProfile.setEventListeners();
-
-
 
 //функция открыть попап  редактировать профиль
 const clickBtnEditProfile = () => {
@@ -151,11 +138,8 @@ const clickBtnEditProfile = () => {
   profileFormValidator.resetValidation();
 };
 
-
-
 //слушатель клика по кнопке Редактировать профиль с вызовом функции открыть попап 
 btnEditProfile.addEventListener('click', clickBtnEditProfile);
-
 
 //экземпляр попап добавить карточку
 const popupAddNewCard = new PopupWithForm({
@@ -169,6 +153,8 @@ const popupAddNewCard = new PopupWithForm({
        const cardElement = createCard(cardData);
        // Добавляем в DOM
        section.prependItem(cardElement);
+       //закрываем попап
+       popupAddNewCard.close();
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
@@ -176,8 +162,8 @@ const popupAddNewCard = new PopupWithForm({
     .finally(()=>{
       popupAddNewCard.renderLoading('Сохранить')
     });
-    //закрываем попап
-    popupAddNewCard.close();
+    // //закрываем попап
+    // popupAddNewCard.close();
   }
 });
 popupAddNewCard.setEventListeners();
@@ -187,7 +173,6 @@ btnAddCard.addEventListener('click',  () => {
   popupAddNewCard.open();
   addCardFormValidator.resetValidation();
 });
-
 
 //экземпляр попапа подтверждения удаления карточки
 const popupWithSubmit = new PopupWithSubmit({
@@ -209,7 +194,7 @@ const popupWithSubmit = new PopupWithSubmit({
 });
 popupWithSubmit.setEventListeners();
 
-//экземпляр попапа Редактировать аваторку
+//экземпляр попапа Редактировать аватaрку
 const popupEditAvatar = new PopupWithForm({
   popupSelector: '.popup_type_update-avatar',
   //сюда в cardData приходит ссылка на аватарку из инпута
@@ -227,7 +212,7 @@ const popupEditAvatar = new PopupWithForm({
 });
 popupEditAvatar.setEventListeners();
 
-
+//cлушаем кнопку Редактировать аватар
 btnEditAvatar.addEventListener('click',  () => {
   popupEditAvatar.open();
   avatarFormValidator.resetValidation();

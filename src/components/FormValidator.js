@@ -1,4 +1,3 @@
-//-----------------------7-sprint-------------------------------------------
  class FormValidator {
   constructor(config, form) {
     this._config = config;
