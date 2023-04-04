@@ -17,7 +17,8 @@ import {
   btnAddCard,
   formPopupAddCard,
   btnEditAvatar,
-  avatarForm
+  avatarForm,
+  popupButton
 } from "../utils/constants.js";
 let userId;
 
@@ -123,6 +124,7 @@ Promise.all([api.getUserInfo(), api.getInitialCards()])
 const popupProfile = new PopupWithForm({
   popupSelector: '.popup_type_edit-profile',
   handleFormSubmit: (userData) => {
+    popupProfile.renderLoading('Сохранение...');
     //сюда приходят новые данные из инпутов(name,about)
     api.editUserInfo(userData) //вызываем метод патч чтобы внести изменения и на сервере
     .then((userData) => {
@@ -130,6 +132,9 @@ const popupProfile = new PopupWithForm({
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+   })
+   .finally(()=>{
+     popupProfile.renderLoading('Сохранить')
    });
     //закрываем попап
     popupProfile.close();
@@ -158,6 +163,7 @@ btnEditProfile.addEventListener('click', clickBtnEditProfile);
 const popupAddNewCard = new PopupWithForm({
   popupSelector: '.popup_type_add-card',
   handleFormSubmit: (cardData) => {
+    popupAddNewCard.renderLoading('Сохранение...');
     //сюда приходят данные с инпутов формы(name,link)
     api.addNewCard(cardData)//вызываем метод post чтобы добавить на сервер новую карточку
     .then((cardData) => {
@@ -168,7 +174,10 @@ const popupAddNewCard = new PopupWithForm({
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
-   });
+   })
+    .finally(()=>{
+      popupAddNewCard.renderLoading('Сохранить')
+    });
     //закрываем попап
     popupAddNewCard.close();
   }
@@ -186,6 +195,7 @@ btnAddCard.addEventListener('click',  () => {
 const popupWithSubmit = new PopupWithSubmit({
   popupSelector: '.popup_type_delete-card',
   handleWithSubmit: (cardId, card)=> {
+    popupWithSubmit.renderLoading('Удаление...');
     api.deleteCard(cardId)
     .then(()=> {
       popupWithSubmit.close();
@@ -193,6 +203,9 @@ const popupWithSubmit = new PopupWithSubmit({
     })
     .catch((err) => {
       console.log(err); // выведем ошибку в консоль
+   })
+   .finally(()=>{
+      popupWithSubmit.renderLoading('Да')
    });
   }
 });

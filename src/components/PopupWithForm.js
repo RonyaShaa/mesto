@@ -6,6 +6,7 @@ class PopupWithForm extends Popup {
     this._handleFormSubmit = handleFormSubmit;
     this._inputList = this._popup.querySelectorAll('.popup__input-text');
     this._form = this._popup.querySelector('.popup__form');
+    this._button = this._popup.querySelector('.popup__button');
   }
 
   _getInputValues(){
@@ -27,8 +28,8 @@ class PopupWithForm extends Popup {
     super.close();
     this._form.reset();
   }
-  renderLoading(isLoading, ){
-
+  renderLoading(data){
+    this._button.textContent = data;
   }
 }
 

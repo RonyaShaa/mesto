@@ -4,6 +4,7 @@ class PopupWithSubmit extends Popup{
   constructor({popupSelector, handleWithSubmit}){
     super(popupSelector);
     this._handleWithSubmit = handleWithSubmit;
+    this._button = this._popup.querySelector('.popup__button-yes');
   }
   open(cardId, card){
     super.open();
@@ -17,6 +18,9 @@ class PopupWithSubmit extends Popup{
       this._handleWithSubmit(this._cardId, this._card);
     });
     this.close();
+  }
+  renderLoading(data){
+    this._button.textContent = data;
   }
 }
 

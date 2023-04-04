@@ -23,3 +23,6 @@ export const interestsInput =  document.querySelector('.popup__input-text_type_i
 export const btnEditAvatar = document.querySelector('.profile__button-avatar');
 //форма попап редактировать аватарку
 export const avatarForm = document.querySelector('.popup__form-update-avatar');
+
+//
+export const popupButton = document.querySelectorAll('.popup__button');
